@@ -22,7 +22,8 @@ $manager = new AccountManager($db);
 // Votre code ici 
 
 
-if(isset($_POST['new'])){
+if(isset($_POST['new']))
+{
     $name = $_POST['name'];
     $balance = 80;
     
@@ -32,16 +33,41 @@ if(isset($_POST['new'])){
         ]);
         
         $manager->add($account);    
-    }
+}
     
     
-    if(isset($_POST['delete']))
-    {
-        $id = $_POST['id'];
-        $account = $manager->getAccount($id);
-        $manager->delete($account);
-        header('Location: index.php');
-    }
-    $accounts = $manager->getAccounts();
+if(isset($_POST['delete']))
+{
+    $id = $_POST['id'];
+    $account = $manager->getAccount($id);
+    $manager->delete($account);
+    header('Location: index.php');
+}
+
+if (isset($_POST['payment']))
+{
+    $id = $_POST['id'];
+    $payment = $_POST['payment'];
+    $balance = $_POST['balance'];
+    $account = $manager->getAccount($id);
+    $account->calculCredit($balance);
+    $manager->update($account);
+    
+}
+
+if (isset($_POST['debit']))
+{
+    $id = $_POST['id'];
+    $debit = $_POST['debit'];
+    $balance = $_POST['balance'];
+    $account = $manager->getAccount($id);
+    $account->calculDebit($balance);
+    $manager->update($account);
+    
+}
+
+
+// mettre cette ligne à la fin!!!!! 
+$accounts = $manager->getAccounts();
 
 include "../views/indexView.php";

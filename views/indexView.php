@@ -69,6 +69,7 @@ include('includes/header.php');
 					<h4>Dépot / Retrait</h4>
 					<form action="index.php" method="post">
 						<input type="hidden" name="id" value="<?php 
+						
 						// Afficher ici l'id du compte 
 						echo $account->getId();?>
 						"  required>

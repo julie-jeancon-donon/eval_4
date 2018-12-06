@@ -105,4 +105,19 @@ class Account
         {
                 return $this->balance;
         }
+        
+        public function calculDebit($debit)
+        {
+            $newBalance = $this->getBalance() - $debit;
+            $this->setBalance($newBalance);
+
+        }
+
+        public function calculCredit($credit)
+
+        {
+
+            $newBalance = $this->getBalance() + $credit;
+            $this->setBalance($newBalance);
+        }
 }

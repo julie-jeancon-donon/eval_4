@@ -91,6 +91,20 @@ class AccountManager
 
     }
 
+    public function update(Account $account)
+    {
+        $query = $this->getDb()->prepare('UPDATE bank_account SET balance = :balance WHERE id = :id');
+        $query->bindValue('balance', $account->getBalance(), PDO::PARAM_INT);
+        $query->bindValue('id', $account->getId(), PDO::PARAM_INT);
+        $query->execute();
+
+
+    }
+
+}
+
+    
+
 
 
     // public function checkIfExist(string $name)
@@ -113,4 +127,4 @@ class AccountManager
 
 // propriétés et méthodes de votre manager ici
 
-}
+

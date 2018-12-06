@@ -31,9 +31,17 @@ if(isset($_POST['new'])){
         'balance'=>$balance
         ]);
         
-        $manager->add($account);
+        $manager->add($account);    
     }
     
+    
+    if(isset($_POST['delete']))
+    {
+        $id = $_POST['id'];
+        $account = $manager->getAccount($id);
+        $manager->delete($account);
+        header('Location: index.php');
+    }
     $accounts = $manager->getAccounts();
 
 include "../views/indexView.php";

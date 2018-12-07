@@ -66,6 +66,20 @@ if (isset($_POST['debit']))
     
 }
 
+if (isset($_POST['transfer']))
+{
+    $idDebit = $_POST['idDebit'];
+    $idPayment = $_POST['idPayment'];
+    $balance = $_POST['balance'];
+    $account = $manager->getAccount($idDebit);
+    $accountTransfer = $manager->getAccount($idPayment);
+    $account->calculDebit($balance);
+    $accountTransfer->calculCredit($balance);
+    $manager->update($account);
+    $manager->update($accountTransfer);
+    header('Location: index.php');
+}
+
 
 // mettre cette ligne à la fin!!!!! 
 $accounts = $manager->getAccounts();

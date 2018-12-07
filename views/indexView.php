@@ -47,7 +47,7 @@ include('includes/header.php');
 				<?php	
       			
 
-				   echo $account->getName(); 
+				    echo $account->getName(); 
 				
 				
 					
@@ -86,11 +86,25 @@ include('includes/header.php');
 						<h4>Transfert</h4>
 						<label>Entrer une somme à transférer</label>
 						<input type="number" name="balance" placeholder="Ex: 300"  required>
-						<input type="hidden" name="idDebit" value="<?php // Afficher ici l'id du compte à débiter?>" required>
+						<input type="hidden" name="idDebit" value="<?php 
+						echo $account->getId();
+						// Afficher ici l'id du compte à débiter?>" required>
 						<label for="">Sélectionner un compte pour le virement</label>
 						<select name="idPayment" required>
 							<option value="" disabled>Choisir un compte</option>
-							<?php // Lister ici les comptes sur lesquels verser l'argent ?>
+							<?php 
+							foreach($accounts as $accountTransfer)
+							{
+								if($account->getId() != $accountTransfer->getId())
+								{
+								?>
+									<option value="<?php echo $accountTransfer->getId();?>"><?php echo $accountTransfer->getName();?></option>
+							<?php
+								}
+							// Lister ici les comptes sur lesquels verser l'argent
+							}
+							?>
+							
 						</select>
 						<input type="submit" name="transfer" value="Transférer l'argent">
 					</form>

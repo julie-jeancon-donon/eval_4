@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 07 Décembre 2018 à 13:53
+-- Généré le :  Ven 07 Décembre 2018 à 15:43
 -- Version du serveur :  5.7.24-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.32-0ubuntu0.16.04.1
 
@@ -33,13 +33,6 @@ CREATE TABLE `bank_account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `bank_account`
---
-
-INSERT INTO `bank_account` (`id`, `balance`, `name`) VALUES
-(59, '80', 'PEL');
-
---
 -- Index pour les tables exportées
 --
 
@@ -58,7 +51,7 @@ ALTER TABLE `bank_account`
 -- AUTO_INCREMENT pour la table `bank_account`
 --
 ALTER TABLE `bank_account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

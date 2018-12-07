@@ -27,9 +27,11 @@ if(isset($_POST['new']))
     $name = $_POST['name'];
     $balance = 80;
     
+    
     $account = new Account([
         'name'=>$name,
-        'balance'=>$balance
+        'balance'=>$balance,
+        
         ]);
         
         $manager->add($account);    

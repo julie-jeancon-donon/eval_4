@@ -28,20 +28,20 @@ class Account
         {
             foreach ($donnees as $key => $value)
             {
-                // On récupère le nom du setter correspondant à l'attribut.
+                
                 $method = 'set'.ucfirst($key);
                     
-                // Si le setter correspondant existe.
+                // if setter exists.
                 if (method_exists($this, $method))
                 {
-                    // On appelle le setter.
+                    
                     $this->$method($value);
                 }
             }
         }
 
 
-// Propriétés et méthodes de votre classe ici
+
 
 
     /**
@@ -106,6 +106,7 @@ class Account
                 return $this->balance;
         }
         
+        // get balance when its debited
         public function calculDebit($debit)
         {
             $newBalance = $this->getBalance() - $debit;
@@ -113,10 +114,9 @@ class Account
 
         }
 
+        // get balance when its credited
         public function calculCredit($credit)
-
         {
-
             $newBalance = $this->getBalance() + $credit;
             $this->setBalance($newBalance);
         }

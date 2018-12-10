@@ -1,7 +1,9 @@
 <?php
 
+
 declare(strict_types = 1);
 
+// create model class 
 class AccountManager
 {
 
@@ -39,7 +41,7 @@ class AccountManager
         return $this;
     }
 
-
+    // get all charachters in DB
     public function getAccounts()
     {
         $arrayOfAccounts = [];
@@ -47,7 +49,7 @@ class AccountManager
         $q = $this->getDb()->query('SELECT * FROM bank_account ORDER BY id');
         $dataAccounts = $q->fetchAll(PDO::FETCH_ASSOC);
         
-        
+        // 
         foreach ($dataAccounts as $dataAccount) {
             $arrayOfAccounts[] = new Account($dataAccount);
         }
@@ -55,6 +57,7 @@ class AccountManager
         return $arrayOfAccounts;
     }
 
+    // add new account in DB
     public function add(Account $account)
     {
         $query = $this->getDb()->prepare('INSERT INTO bank_account(name, balance) VALUES (:name, :balance)');
@@ -78,6 +81,7 @@ class AccountManager
         
     }
 
+    // get one account by id
     public function getAccount($infos_account)
     {
         $query = $this->getDb()->prepare('SELECT * FROM bank_account WHERE id = :id');
@@ -91,6 +95,7 @@ class AccountManager
 
     }
 
+    // update account's data
     public function update(Account $account)
     {
         $query = $this->getDb()->prepare('UPDATE bank_account SET balance = :balance WHERE id = :id');
@@ -125,6 +130,5 @@ class AccountManager
     // }
 
 
-// propriétés et méthodes de votre manager ici
 
 

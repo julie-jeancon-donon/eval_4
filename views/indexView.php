@@ -19,11 +19,9 @@ include('includes/header.php');
 			<option value="PEL">PEL</option>
 			<option value="Compte courant">Compte courant</option>
 			<option value="Compte joint">Compte joint</option>
-			<option value="Livret A">Livret A</option>
+			<option value="Livret A">Livret A</option>	 
 
-			 
-
-			// Listez les options possibles à choisir (compte courant, PEL, etc.) ?>
+		
 		</select>
 		<input type="submit" name="new" value="Ouvrir un nouveau compte">
 	</form>
@@ -32,44 +30,46 @@ include('includes/header.php');
 
 	<div class="main-content flex">
 
-	<!-- Pour chaque compte enregistré en base de données, il faudra générer le code ci-dessous -->
+	<!-- for each account saved -->
 
 	<?php // 
 	foreach($accounts as $account)
 	{
 	  
-		######### DEBUT DU CODE A GENERER A CHAQUE TOUR DE BOUCLE ######### ?>
+		######### start of generated code for each loop round ######### ?>
 
 		<div class="card-container">
 
 			<div class="card">
 				<h3><strong>
 				<?php	
-      			
-
-				   echo $account->getName(); 
-				
-				
-					
-				// Affichez ici le nom du compte 
+				  // display account name
+				    echo $account->getName(); 
 				?>
 				</strong></h3>
 				<div class="card-content">
+					<p 
+					<?php 
+						if($account->getBalance() <= 0)
+						{
+							echo 'class="red"';
+						}
+						?>
+						>Somme disponible : 
+					<?php 
+					// display account balance
 
+					echo $account->getBalance(); 
+					?> €</p>
 
-					<p>Somme disponible : <?php 
-					foreach($accounts as $account)
-					{
-					  
-	
-					   echo $account->getBalance(); 
-					
-					}// Affichez ici la somme disponible ?> €</p>
-
-					<!-- Formulaire pour dépot/retrait -->
+					<!-- Form for credit/debit -->
 					<h4>Dépot / Retrait</h4>
 					<form action="index.php" method="post">
-						<input type="hidden" name="id" value=" <?php // Afficher ici l'id du compte ?>"  required>
+						<input type="hidden" name="id" value="<?php 
+						
+						// display account ID 
+						echo $account->getId();?>
+						"  required>
 						<label>Entrer une somme à débiter/créditer</label>
 						<input type="number" name="balance" placeholder="Ex: 250" required>
 						<input type="submit" name="payment" value="Créditer">
@@ -77,24 +77,42 @@ include('includes/header.php');
 					</form>
 
 
-					<!-- Formulaire pour virement -->
+					<!-- Form for transfer -->
 			 		<form action="index.php" method="post">
 
 						<h4>Transfert</h4>
 						<label>Entrer une somme à transférer</label>
 						<input type="number" name="balance" placeholder="Ex: 300"  required>
-						<input type="hidden" name="idDebit" value="<?php // Afficher ici l'id du compte à débiter?>" required>
+						<input type="hidden" name="idDebit" value="<?php
+						// display account ID 
+						echo $account->getId();
+						?>" required>
 						<label for="">Sélectionner un compte pour le virement</label>
 						<select name="idPayment" required>
 							<option value="" disabled>Choisir un compte</option>
-							<?php // Lister ici les comptes sur lesquels verser l'argent ?>
+							<?php 
+							// display accounts whose we can credit  
+							foreach($accounts as $accountTransfer)
+							{
+								if($account->getId() != $accountTransfer->getId())
+								{
+								?>
+									<option value="<?php echo $accountTransfer->getId();?>"><?php echo $accountTransfer->getName();?></option>
+							<?php
+								}
+							
+							}
+							?>
+							
 						</select>
 						<input type="submit" name="transfer" value="Transférer l'argent">
 					</form>
 
-					<!-- Formulaire pour suppression -->
+					<!-- Form to delete-->
 			 		<form class="delete" action="index.php" method="post">
-				 		<input type="hidden" name="id" value="<?php // Afficher ici l'id du compte ?>"  required>
+						 <input type="hidden" name="id" value="<?php 
+						 echo $account->getId();
+						 // display account ID ?>"  required>
 				 		<input type="submit" name="delete" value="Supprimer le compte">
 			 		</form>
 
@@ -102,7 +120,11 @@ include('includes/header.php');
 			</div>
 		</div>
 
-	<?php // ######### FIN DU CODE A GENERER A CHAQUE TOUR DE BOUCLE ######### ?>
+	
+	<?php }
+	
+	// ######### end of generated code for each loop round ######### 
+	?>
 
 	</div>
 

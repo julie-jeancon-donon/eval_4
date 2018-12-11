@@ -46,7 +46,7 @@ class Account
 
     /**
      * Set the value of id
-     *
+     * @param int $id
      * @return  self
      */ 
     public function setId($id)
@@ -59,7 +59,9 @@ class Account
 
     /**
      * Get the value of id
-     */ 
+     *
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
@@ -67,7 +69,7 @@ class Account
 
         /**
          * Set the value of name
-         *
+         * @param string $name
          * @return  self
          */ 
         public function setName(string $name)
@@ -79,6 +81,7 @@ class Account
 
         /**
          * Get the value of name
+         * @return string
          */ 
         public function getName()
         {
@@ -87,7 +90,7 @@ class Account
 
         /**
          * Set the value of balance
-         *
+         * @param int $balance
          * @return  self
          */ 
         public function setBalance($balance)
@@ -99,14 +102,21 @@ class Account
         }
 
         /**
-         * Get the value of balance
-         */ 
+         * get the value of the balance
+         *
+         * @return int
+         */
         public function getBalance()
         {
                 return $this->balance;
         }
         
-        // get balance when its debited
+        /**
+         * get balance when its debited
+         *
+         * @param int $debit
+         * @return int
+         */
         public function calculDebit($debit)
         {
             $newBalance = $this->getBalance() - $debit;
@@ -114,7 +124,12 @@ class Account
 
         }
 
-        // get balance when its credited
+        /**
+         * get balance when its credited
+         *
+         * @param int $credit
+         * @return int
+         */
         public function calculCredit($credit)
         {
             $newBalance = $this->getBalance() + $credit;

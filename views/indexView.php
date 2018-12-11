@@ -19,11 +19,9 @@ include('includes/header.php');
 			<option value="PEL">PEL</option>
 			<option value="Compte courant">Compte courant</option>
 			<option value="Compte joint">Compte joint</option>
-			<option value="Livret A">Livret A</option>
+			<option value="Livret A">Livret A</option>	 
 
-			 
-
-			// Listez les options possibles à choisir (compte courant, PEL, etc.) ?>
+		
 		</select>
 		<input type="submit" name="new" value="Ouvrir un nouveau compte">
 	</form>
@@ -50,9 +48,17 @@ include('includes/header.php');
 				?>
 				</strong></h3>
 				<div class="card-content">
-					<p>Somme disponible : 
+					<p 
+					<?php 
+						if($account->getBalance() <= 0)
+						{
+							echo 'class="red"';
+						}
+						?>
+						>Somme disponible : 
 					<?php 
 					// display account balance
+
 					echo $account->getBalance(); 
 					?> €</p>
 

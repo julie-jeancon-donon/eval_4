@@ -26,14 +26,14 @@ if(isset($_POST['new']))
     $name = $_POST['name'];
     $balance = 80;
     
-    
     $account = new Account([
         'name'=>$name,
         'balance'=>$balance,
         
         ]);
         
-        $manager->add($account);    
+        $manager->add($account);
+    header('Location: index.php');   
 }
     
 // if we click on "supprimer", we delete account from DB
@@ -55,6 +55,7 @@ if (isset($_POST['payment']))
     $account = $manager->getAccount($id);
     $account->calculCredit($balance);
     $manager->update($account);
+    header('Location: index.php');
     
 }
 
@@ -65,8 +66,14 @@ if (isset($_POST['debit']))
     $debit = $_POST['debit'];
     $balance = $_POST['balance'];
     $account = $manager->getAccount($id);
-    $account->calculDebit($balance);
-    $manager->update($account);
+
+    // condition to PEL can't be debited
+    if($account->getName($id) != "PEL")
+    {
+        $account->calculDebit($balance);
+        $manager->update($account);
+    }
+    header('Location: index.php');
     
 }
 
@@ -78,12 +85,18 @@ if (isset($_POST['transfer']))
     $balance = $_POST['balance'];
     $account = $manager->getAccount($idDebit);
     $accountTransfer = $manager->getAccount($idPayment);
-    $account->calculDebit($balance);
-    $accountTransfer->calculCredit($balance);
-    $manager->update($account);
-    $manager->update($accountTransfer);
+
+    // condition to PEL can't be debited
+    if($account->getName($idDebit) != "PEL")
+    {
+        $account->calculDebit($balance);
+        $accountTransfer->calculCredit($balance);
+        $manager->update($account);
+        $manager->update($accountTransfer);
+    }
     header('Location: index.php');
 }
+
 
 
 // get accounts after all updates

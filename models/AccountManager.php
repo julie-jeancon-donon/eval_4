@@ -41,7 +41,11 @@ class AccountManager
         return $this;
     }
 
-    // get all charachters in DB
+    /**
+     * get accounts
+     *
+     * @return array
+     */
     public function getAccounts()
     {
         $arrayOfAccounts = [];
@@ -57,7 +61,12 @@ class AccountManager
         return $arrayOfAccounts;
     }
 
-    // add new account in DB
+    /**
+     * Add new account in DB
+     *
+     * @param Account $account
+     * @return void
+     */
     public function add(Account $account)
     {
         $query = $this->getDb()->prepare('INSERT INTO bank_account(name, balance) VALUES (:name, :balance)');
@@ -81,7 +90,12 @@ class AccountManager
         
     }
 
-    // get one account by id
+    /**
+     * get one account by ID
+     *
+     * @param $infos_account
+     * @return Account
+     */
     public function getAccount($infos_account)
     {
         $query = $this->getDb()->prepare('SELECT * FROM bank_account WHERE id = :id');
@@ -91,19 +105,20 @@ class AccountManager
         $dataAccount = $query->fetch(PDO::FETCH_ASSOC);
 
         return new Account($dataAccount);
-
-
     }
 
-    // update account's data
+    /**
+     * update account's data
+     *
+     * @param Account $account
+     * @return void
+     */
     public function update(Account $account)
     {
         $query = $this->getDb()->prepare('UPDATE bank_account SET balance = :balance WHERE id = :id');
         $query->bindValue('balance', $account->getBalance(), PDO::PARAM_INT);
         $query->bindValue('id', $account->getId(), PDO::PARAM_INT);
         $query->execute();
-
-
     }
 
 }
